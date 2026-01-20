@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Website - B&W Theme</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ANIMATED BACKGROUND ELEMENTS -->
+    <div class="bg-animation"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="glow-line"></div>
+    <div class="glow-line"></div>
+    <div class="glow-line"></div>
+    <div class="glow-line"></div>
+
+    <!-- HIDDEN FILE INPUT FOR IMPORT -->
+    <input type="file" id="importFileInput" accept=".json">
+
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-left">
+                    <div class="profile-photo-large">👤</div>
+                    <h1>Welcome</h1>
+                    <p>Portfolio Website</p>
+                </div>
+                <div class="login-right">
+                    <h2>PILIH MODE AKSES</h2>
+                    <button class="login-btn" onclick="viewMode()">
+                        <span>👁️</span>
+                        <span>Lihat Portfolio</span>
+                    </button>
+                    <button class="login-btn admin" onclick="showPasswordModal()">
+                        <span>🔐</span>
+                        <span>Admin - Edit Portfolio</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT PAGE -->
+    <div id="editPage" class="page">
+        <div class="header">
+            <h1>✏️ EDIT PORTFOLIO</h1>
+            <div class="header-buttons">
+                <button class="data-btn" onclick="exportData()">📥 Export</button>
+                <button class="data-btn import" onclick="importData()">📤 Import</button>
+                <button class="data-btn clear" onclick="clearAllData()">🗑️ Hapus Semua</button>
+                <button class="logout-btn" onclick="logout()">Keluar</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- DATABASE STATUS -->
+            <div id="dbStatus" class="db-status">
+                <div class="db-status-info">
+                    <div class="db-status-dot"></div>
+                    <span class="db-status-text"><strong>Database:</strong> Loading...</span>
+                </div>
+                <span class="last-saved">Memuat data...</span>
+            </div>
+
+            <div class="content">
+                <div class="profile-section">
+                    <div class="profile-header">
+                        <h2 class="section-title">PROFIL SAYA</h2>
+                        <button class="edit-profile-btn" onclick="openProfileModal()">✏️ Edit Profil</button>
+                    </div>
+                    <div id="profileDisplay"></div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="experience-section">
+                    <h2 class="section-title">PENGALAMAN KERJA</h2>
+                    <button class="add-btn" onclick="openExperienceModal()">+ Tambah Pengalaman</button>
+                    <div id="experienceList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW PAGE -->
+    <div id="viewPage" class="page">
+        <div class="header">
+            <h1>📁 PORTFOLIO</h1>
+            <button class="logout-btn" onclick="logout()">Kembali</button>
+        </div>
+
+        <div class="container">
+            <div class="view-header">
+                <h1>PORTFOLIO PROFESIONAL</h1>
+            </div>
+
+            <div class="content">
+                <div id="viewProfileDisplay"></div>
+                <div class="divider"></div>
+                <h2 class="section-title">PENGALAMAN KERJA</h2>
+                <div id="viewExperienceList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASSWORD MODAL -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePasswordModal()">&times;</span>
+            <h2 class="modal-title">🔐 LOGIN ADMIN</h2>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label>Password Admin</label>
+                    <input type="password" id="adminPassword" required placeholder="Masukkan password admin">
+                </div>
+                <p class="password-hint">
+                    Password default: <strong>admin123</strong>
+                </p>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <p id="errorMessage" class="error-message">
+                Password salah! Silakan coba lagi.
+            </p>
+        </div>
+    </div>
+
+    <!-- PROFILE MODAL -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProfileModal()">&times;</span>
+            <h2 class="modal-title">EDIT PROFIL</h2>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label>Foto Profil</label>
+                    <input type="file" id="profileImageUploadTest" accept="image/*">
+                    <img id="profileImagePreviewTest" src="" alt="Profile Preview" class="profile-image-preview">
+                </div>
+                <div class="form-group">
+                    <label>Nama Lengkap *</label>
+                    <input type="text" id="profileName" required>
+                </div>
+                <div class="form-group">
+                    <label>Jabatan / Profesi *</label>
+                    <input type="text" id="profileJobTitle" required placeholder="Full Stack Developer">
+                </div>
+                <div class="form-group">
+                    <label>Bio / Tentang Saya</label>
+                    <textarea id="profileBio" placeholder="Ceritakan tentang diri Anda..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="profileEmail" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Nomor Telepon</label>
+                    <input type="tel" id="profilePhone" placeholder="+62 812-3456-7890">
+                </div>
+                <div class="form-group">
+                    <label>Lokasi</label>
+                    <input type="text" id="profileLocation" placeholder="Jakarta, Indonesia">
+                </div>
+                <div class="form-group">
+                    <label>LinkedIn</label>
+                    <input type="url" id="profileLinkedin" placeholder="https://linkedin.com/in/username">
+                </div>
+                <button type="submit" class="submit-btn">Simpan Profil</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- EXPERIENCE MODAL -->
+    <div id="experienceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeExperienceModal()">&times;</span>
+            <h2 id="experienceModalTitle" class="modal-title">TAMBAH PENGALAMAN</h2>
+            <form id="experienceForm">
+                <div class="form-group">
+                    <label>Posisi / Jabatan *</label>
+                    <input type="text" id="position" required>
+                </div>
+                <div class="form-group">
+                    <label>Perusahaan *</label>
+                    <input type="text" id="company" required>
+                </div>
+                <div class="form-group">
+                    <label>Periode *</label>
+                    <input type="text" id="period" required placeholder="Jan 2020 - Des 2022">
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi Pekerjaan</label>
+                    <textarea id="description" placeholder="Ceritakan tentang tanggung jawab dan pencapaian Anda..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Simpan Pengalaman</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
