@@ -43,11 +43,11 @@
                 </div>
                 <div class="login-right">
                     <h2>PILIH MODE AKSES</h2>
-                    <button class="login-btn" onclick="viewMode()">
+                    <button class="login-btn" id="btnViewPortfolio">
                         <span>👁️</span>
                         <span>Lihat Portfolio</span>
                     </button>
-                    <button class="login-btn admin" onclick="showPasswordModal()">
+                    <button class="login-btn admin" id="btnAdminLogin">
                         <span>🔐</span>
                         <span>Admin - Edit Portfolio</span>
                     </button>
@@ -60,7 +60,7 @@
     <div id="viewPage" class="page">
         <div class="header">
             <h1>📁 PORTFOLIO</h1>
-            <button class="logout-btn" onclick="goToLogin()">Kembali</button>
+            <button class="logout-btn" id="btnBackFromView">Kembali</button>
         </div>
         <div class="container">
             <div class="view-header">
@@ -80,10 +80,10 @@
         <div class="header">
             <h1>✏️ EDIT PORTFOLIO</h1>
             <div class="header-buttons">
-                <button class="data-btn export" onclick="exportData()">📥 Export</button>
-                <button class="data-btn import" onclick="document.getElementById('importFileInput').click()">📤 Import</button>
-                <button class="data-btn clear" onclick="clearAllData()">🗑️ Hapus Semua</button>
-                <button class="logout-btn" onclick="goToLogin()">Keluar</button>
+                <button class="data-btn export" id="btnExport">📥 Export</button>
+                <button class="data-btn import" id="btnImport">📤 Import</button>
+                <button class="data-btn clear" id="btnClearAll">🗑️ Hapus Semua</button>
+                <button class="logout-btn" id="btnBackFromEdit">Keluar</button>
             </div>
         </div>
         <div class="container">
@@ -100,7 +100,7 @@
                 <!-- Profile Section -->
                 <div class="section-header">
                     <h2 class="section-title">PROFIL SAYA</h2>
-                    <button class="edit-btn-header" onclick="openProfileModal()">✏️ Edit Profil</button>
+                    <button class="edit-btn-header" id="btnEditProfile">✏️ Edit Profil</button>
                 </div>
                 <div id="editProfileSection"></div>
 
@@ -108,7 +108,7 @@
 
                 <!-- Experience Section -->
                 <h2 class="section-title">PENGALAMAN KERJA</h2>
-                <button class="add-btn" onclick="openExperienceModal(-1)">+ Tambah Pengalaman</button>
+                <button class="add-btn" id="btnAddExperience">+ Tambah Pengalaman</button>
                 <div id="editExperienceList"></div>
             </div>
         </div>
@@ -117,9 +117,9 @@
     <!-- ==================== PASSWORD MODAL ==================== -->
     <div id="passwordModal" class="modal">
         <div class="modal-content modal-small">
-            <span class="close" onclick="closeModal('passwordModal')">&times;</span>
+            <span class="close" id="closePasswordModal">&times;</span>
             <h2 class="modal-title">🔐 LOGIN ADMIN</h2>
-            <form onsubmit="checkPassword(event)">
+            <form id="passwordForm">
                 <div class="form-group">
                     <label>Password</label>
                     <input type="password" id="passwordInput" required placeholder="Masukkan password">
@@ -134,15 +134,15 @@
     <!-- ==================== PROFILE MODAL ==================== -->
     <div id="profileModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('profileModal')">&times;</span>
+            <span class="close" id="closeProfileModal">&times;</span>
             <h2 class="modal-title">EDIT PROFIL</h2>
-            <form onsubmit="saveProfile(event)">
+            <form id="profileForm">
                 <div class="form-group">
                     <label>Foto Profil</label>
-                    <input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(event)">
+                    <input type="file" id="photoInput" accept="image/*">
                     <div class="photo-preview-container">
                         <img id="photoPreview" class="photo-preview" style="display:none;">
-                        <button type="button" class="remove-photo-btn" id="removePhotoBtn" onclick="removePhoto()" style="display:none;">✕ Hapus Foto</button>
+                        <button type="button" class="remove-photo-btn" id="removePhotoBtn" style="display:none;">✕ Hapus Foto</button>
                     </div>
                     <p class="hint">Maksimal 500KB. Akan dikompresi otomatis.</p>
                 </div>
@@ -182,9 +182,9 @@
     <!-- ==================== EXPERIENCE MODAL ==================== -->
     <div id="experienceModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('experienceModal')">&times;</span>
+            <span class="close" id="closeExperienceModal">&times;</span>
             <h2 class="modal-title" id="expModalTitle">TAMBAH PENGALAMAN</h2>
-            <form onsubmit="saveExperience(event)">
+            <form id="experienceForm">
                 <input type="hidden" id="expEditIndex" value="-1">
                 <div class="form-group">
                     <label>Posisi / Jabatan *</label>
