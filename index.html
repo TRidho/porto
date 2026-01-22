@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ANIMATED BACKGROUND ELEMENTS -->
+    <!-- ANIMATED BACKGROUND -->
     <div class="bg-animation"></div>
     <div class="circle"></div>
     <div class="circle"></div>
@@ -19,26 +19,26 @@
     <div class="glow-line"></div>
     <div class="glow-line"></div>
 
-    <!-- LOADING OVERLAY -->
+    <!-- LOADING -->
     <div id="loadingOverlay" class="loading-overlay">
         <div class="loading-spinner"></div>
-        <p>Memuat data...</p>
+        <p id="loadingText">Menghubungkan ke database...</p>
     </div>
 
-    <!-- HIDDEN FILE INPUT -->
-    <input type="file" id="importFileInput" accept=".json">
+    <!-- FILE INPUT HIDDEN -->
+    <input type="file" id="importFileInput" accept=".json" style="display:none;">
 
-    <!-- LOGIN PAGE -->
+    <!-- ========== LOGIN PAGE ========== -->
     <div id="loginPage" class="page active">
         <div class="login-container">
             <div class="login-box">
                 <div class="login-left">
-                    <div class="profile-photo-large">👤</div>
-                    <h1>Welcome</h1>
-                    <p>Portfolio Website</p>
+                    <div class="profile-photo-large" id="loginPhoto">👤</div>
+                    <h1 id="loginName">Welcome</h1>
+                    <p id="loginTitle">Portfolio Website</p>
                     <div class="db-indicator">
-                        <span class="db-dot"></span>
-                        <span id="dbConnectionStatus">Memuat...</span>
+                        <span class="db-dot" id="dbDot"></span>
+                        <span id="dbStatus">Menghubungkan...</span>
                     </div>
                 </div>
                 <div class="login-right">
@@ -56,73 +56,18 @@
         </div>
     </div>
 
-    <!-- EDIT PAGE -->
-    <div id="editPage" class="page">
-        <div class="header">
-            <h1>✏️ EDIT PORTFOLIO</h1>
-            <div class="header-buttons">
-                <button class="data-btn" onclick="exportData()">📥 Export JSON</button>
-                <button class="data-btn import" onclick="importData()">📤 Import</button>
-                <button class="data-btn clear" onclick="clearAllData()">🗑️ Reset</button>
-                <button class="logout-btn" onclick="logout()">Keluar</button>
-            </div>
-        </div>
-
-        <div class="container">
-            <div id="dbStatus" class="db-status">
-                <div class="db-status-info">
-                    <div class="db-status-dot"></div>
-                    <span class="db-status-text"><strong>Sumber:</strong> Loading...</span>
-                </div>
-                <span class="last-saved">Memuat data...</span>
-            </div>
-
-            <div class="content">
-                <div class="profile-section">
-                    <div class="profile-header">
-                        <h2 class="section-title">PROFIL SAYA</h2>
-                        <button class="edit-profile-btn" onclick="openProfileModal()">✏️ Edit Profil</button>
-                    </div>
-                    <div id="profileDisplay"></div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="experience-section">
-                    <h2 class="section-title">PENGALAMAN KERJA</h2>
-                    <button class="add-btn" onclick="openExperienceModal()">+ Tambah Pengalaman</button>
-                    <div id="experienceList"></div>
-                </div>
-            </div>
-
-            <!-- PETUNJUK UPDATE -->
-            <div class="update-guide">
-                <h3>📝 Cara Update Data di GitHub:</h3>
-                <ol>
-                    <li>Edit data di halaman ini</li>
-                    <li>Klik tombol <strong>"📥 Export JSON"</strong></li>
-                    <li>File <code>data.json</code> akan terdownload</li>
-                    <li>Upload/replace file tersebut ke repository GitHub Anda</li>
-                    <li>Tunggu beberapa menit, data akan terupdate!</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-
-    <!-- VIEW PAGE -->
+    <!-- ========== VIEW PAGE ========== -->
     <div id="viewPage" class="page">
         <div class="header">
             <h1>📁 PORTFOLIO</h1>
-            <button class="logout-btn" onclick="logout()">Kembali</button>
+            <button class="logout-btn" onclick="goToLogin()">Kembali</button>
         </div>
-
         <div class="container">
             <div class="view-header">
                 <h1>PORTFOLIO PROFESIONAL</h1>
             </div>
-
             <div class="content">
-                <div id="viewProfileDisplay"></div>
+                <div id="viewProfileSection"></div>
                 <div class="divider"></div>
                 <h2 class="section-title">PENGALAMAN KERJA</h2>
                 <div id="viewExperienceList"></div>
@@ -130,94 +75,151 @@
         </div>
     </div>
 
-    <!-- PASSWORD MODAL -->
-    <div id="passwordModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closePasswordModal()">&times;</span>
-            <h2 class="modal-title">🔐 LOGIN ADMIN</h2>
-            <form id="passwordForm">
-                <div class="form-group">
-                    <label>Password Admin</label>
-                    <input type="password" id="adminPassword" required placeholder="Masukkan password admin">
+    <!-- ========== EDIT PAGE ========== -->
+    <div id="editPage" class="page">
+        <div class="header">
+            <h1>✏️ EDIT PORTFOLIO</h1>
+            <div class="header-buttons">
+                <button class="data-btn export" onclick="exportData()">📥 Export</button>
+                <button class="data-btn import" onclick="document.getElementById('importFileInput').click()">📤 Import</button>
+                <button class="data-btn clear" onclick="clearAllData()">🗑️ Hapus</button>
+                <button class="logout-btn" onclick="goToLogin()">Keluar</button>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Database Status -->
+            <div class="db-status-bar">
+                <div class="db-status-left">
+                    <span class="db-status-dot" id="editDbDot"></span>
+                    <span id="editDbStatus">Firebase Database</span>
                 </div>
-                <p class="password-hint">Password default: <strong>admin123</strong></p>
-                <button type="submit" class="submit-btn">Login</button>
-            </form>
-            <p id="errorMessage" class="error-message">Password salah!</p>
+                <span class="db-status-right" id="lastSaved">-</span>
+            </div>
+
+            <div class="content">
+                <!-- Profile Section -->
+                <div class="section-header">
+                    <h2 class="section-title">PROFIL SAYA</h2>
+                    <button class="edit-btn-header" onclick="openProfileModal()">✏️ Edit Profil</button>
+                </div>
+                <div id="editProfileSection"></div>
+
+                <div class="divider"></div>
+
+                <!-- Experience Section -->
+                <div class="section-header">
+                    <h2 class="section-title">PENGALAMAN KERJA</h2>
+                </div>
+                <button class="add-btn" onclick="openExperienceModal(-1)">+ Tambah Pengalaman</button>
+                <div id="editExperienceList"></div>
+            </div>
         </div>
     </div>
 
-    <!-- PROFILE MODAL -->
+    <!-- ========== PASSWORD MODAL ========== -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content modal-small">
+            <span class="close" onclick="closeModal('passwordModal')">&times;</span>
+            <h2 class="modal-title">🔐 LOGIN ADMIN</h2>
+            <form onsubmit="checkPassword(event)">
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="passwordInput" required placeholder="Masukkan password">
+                </div>
+                <p class="hint">Password: <strong>admin123</strong></p>
+                <button type="submit" class="submit-btn">Masuk</button>
+                <p id="passwordError" class="error-text">Password salah!</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== PROFILE MODAL ========== -->
     <div id="profileModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeProfileModal()">&times;</span>
+            <span class="close" onclick="closeModal('profileModal')">&times;</span>
             <h2 class="modal-title">EDIT PROFIL</h2>
-            <form id="profileForm">
+            <form onsubmit="saveProfile(event)">
                 <div class="form-group">
-                    <label>Foto Profil (Max 500KB)</label>
-                    <input type="file" id="profileImageUpload" accept="image/*">
-                    <img id="profileImagePreview" src="" alt="Preview" class="profile-image-preview">
+                    <label>Foto Profil</label>
+                    <input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(event)">
+                    <div class="photo-preview-container">
+                        <img id="photoPreview" class="photo-preview" style="display:none;">
+                        <button type="button" class="remove-photo-btn" id="removePhotoBtn" onclick="removePhoto()" style="display:none;">✕ Hapus Foto</button>
+                    </div>
+                    <p class="hint">Maksimal 200KB. Gambar akan dikompresi otomatis.</p>
                 </div>
                 <div class="form-group">
                     <label>Nama Lengkap *</label>
-                    <input type="text" id="profileName" required>
+                    <input type="text" id="nameInput" required placeholder="John Doe">
                 </div>
                 <div class="form-group">
                     <label>Jabatan / Profesi *</label>
-                    <input type="text" id="profileJobTitle" required placeholder="Full Stack Developer">
+                    <input type="text" id="jobInput" required placeholder="Full Stack Developer">
                 </div>
                 <div class="form-group">
-                    <label>Bio / Tentang Saya</label>
-                    <textarea id="profileBio" placeholder="Ceritakan tentang diri Anda..."></textarea>
+                    <label>Bio</label>
+                    <textarea id="bioInput" placeholder="Ceritakan tentang diri Anda..."></textarea>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="profileEmail" placeholder="email@example.com">
+                    <input type="email" id="emailInput" placeholder="email@example.com">
                 </div>
                 <div class="form-group">
-                    <label>Nomor Telepon</label>
-                    <input type="tel" id="profilePhone" placeholder="+62 812-3456-7890">
+                    <label>Telepon</label>
+                    <input type="tel" id="phoneInput" placeholder="+62 812-3456-7890">
                 </div>
                 <div class="form-group">
                     <label>Lokasi</label>
-                    <input type="text" id="profileLocation" placeholder="Jakarta, Indonesia">
+                    <input type="text" id="locationInput" placeholder="Jakarta, Indonesia">
                 </div>
                 <div class="form-group">
                     <label>LinkedIn</label>
-                    <input type="url" id="profileLinkedin" placeholder="https://linkedin.com/in/username">
+                    <input type="url" id="linkedinInput" placeholder="https://linkedin.com/in/username">
                 </div>
-                <button type="submit" class="submit-btn">Simpan Profil</button>
+                <button type="submit" class="submit-btn" id="profileSubmitBtn">
+                    <span class="btn-text">Simpan Profil</span>
+                    <span class="btn-loading" style="display:none;">Menyimpan...</span>
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- EXPERIENCE MODAL -->
+    <!-- ========== EXPERIENCE MODAL ========== -->
     <div id="experienceModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeExperienceModal()">&times;</span>
-            <h2 id="experienceModalTitle" class="modal-title">TAMBAH PENGALAMAN</h2>
-            <form id="experienceForm">
+            <span class="close" onclick="closeModal('experienceModal')">&times;</span>
+            <h2 class="modal-title" id="expModalTitle">TAMBAH PENGALAMAN</h2>
+            <form onsubmit="saveExperience(event)">
+                <input type="hidden" id="expEditIndex" value="-1">
                 <div class="form-group">
                     <label>Posisi / Jabatan *</label>
-                    <input type="text" id="position" required>
+                    <input type="text" id="positionInput" required placeholder="Senior Developer">
                 </div>
                 <div class="form-group">
                     <label>Perusahaan *</label>
-                    <input type="text" id="company" required>
+                    <input type="text" id="companyInput" required placeholder="PT Tech Indonesia">
                 </div>
                 <div class="form-group">
                     <label>Periode *</label>
-                    <input type="text" id="period" required placeholder="Jan 2020 - Des 2022">
+                    <input type="text" id="periodInput" required placeholder="Jan 2020 - Sekarang">
                 </div>
                 <div class="form-group">
-                    <label>Deskripsi Pekerjaan</label>
-                    <textarea id="description" placeholder="Ceritakan tentang tanggung jawab Anda..."></textarea>
+                    <label>Deskripsi</label>
+                    <textarea id="descInput" placeholder="Jelaskan tanggung jawab dan pencapaian..."></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Simpan Pengalaman</button>
+                <button type="submit" class="submit-btn" id="expSubmitBtn">
+                    <span class="btn-text">Simpan</span>
+                    <span class="btn-loading" style="display:none;">Menyimpan...</span>
+                </button>
             </form>
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- Main Script -->
     <script src="script.js"></script>
 </body>
 </html>
