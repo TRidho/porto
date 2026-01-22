@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Website - B&W Theme</title>
+    <title>Portfolio Website</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,7 +19,13 @@
     <div class="glow-line"></div>
     <div class="glow-line"></div>
 
-    <!-- HIDDEN FILE INPUT FOR IMPORT -->
+    <!-- LOADING OVERLAY -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Memuat data...</p>
+    </div>
+
+    <!-- HIDDEN FILE INPUT -->
     <input type="file" id="importFileInput" accept=".json">
 
     <!-- LOGIN PAGE -->
@@ -30,6 +36,10 @@
                     <div class="profile-photo-large">👤</div>
                     <h1>Welcome</h1>
                     <p>Portfolio Website</p>
+                    <div class="db-indicator">
+                        <span class="db-dot"></span>
+                        <span id="dbConnectionStatus">Memuat...</span>
+                    </div>
                 </div>
                 <div class="login-right">
                     <h2>PILIH MODE AKSES</h2>
@@ -51,19 +61,18 @@
         <div class="header">
             <h1>✏️ EDIT PORTFOLIO</h1>
             <div class="header-buttons">
-                <button class="data-btn" onclick="exportData()">📥 Export</button>
+                <button class="data-btn" onclick="exportData()">📥 Export JSON</button>
                 <button class="data-btn import" onclick="importData()">📤 Import</button>
-                <button class="data-btn clear" onclick="clearAllData()">🗑️ Hapus Semua</button>
+                <button class="data-btn clear" onclick="clearAllData()">🗑️ Reset</button>
                 <button class="logout-btn" onclick="logout()">Keluar</button>
             </div>
         </div>
 
         <div class="container">
-            <!-- DATABASE STATUS -->
             <div id="dbStatus" class="db-status">
                 <div class="db-status-info">
                     <div class="db-status-dot"></div>
-                    <span class="db-status-text"><strong>Database:</strong> Loading...</span>
+                    <span class="db-status-text"><strong>Sumber:</strong> Loading...</span>
                 </div>
                 <span class="last-saved">Memuat data...</span>
             </div>
@@ -84,6 +93,18 @@
                     <button class="add-btn" onclick="openExperienceModal()">+ Tambah Pengalaman</button>
                     <div id="experienceList"></div>
                 </div>
+            </div>
+
+            <!-- PETUNJUK UPDATE -->
+            <div class="update-guide">
+                <h3>📝 Cara Update Data di GitHub:</h3>
+                <ol>
+                    <li>Edit data di halaman ini</li>
+                    <li>Klik tombol <strong>"📥 Export JSON"</strong></li>
+                    <li>File <code>data.json</code> akan terdownload</li>
+                    <li>Upload/replace file tersebut ke repository GitHub Anda</li>
+                    <li>Tunggu beberapa menit, data akan terupdate!</li>
+                </ol>
             </div>
         </div>
     </div>
@@ -119,14 +140,10 @@
                     <label>Password Admin</label>
                     <input type="password" id="adminPassword" required placeholder="Masukkan password admin">
                 </div>
-                <p class="password-hint">
-                    Password default: <strong>admin123</strong>
-                </p>
+                <p class="password-hint">Password default: <strong>admin123</strong></p>
                 <button type="submit" class="submit-btn">Login</button>
             </form>
-            <p id="errorMessage" class="error-message">
-                Password salah! Silakan coba lagi.
-            </p>
+            <p id="errorMessage" class="error-message">Password salah!</p>
         </div>
     </div>
 
@@ -137,9 +154,9 @@
             <h2 class="modal-title">EDIT PROFIL</h2>
             <form id="profileForm">
                 <div class="form-group">
-                    <label>Foto Profil</label>
-                    <input type="file" id="profileImageUploadTest" accept="image/*">
-                    <img id="profileImagePreviewTest" src="" alt="Profile Preview" class="profile-image-preview">
+                    <label>Foto Profil (Max 500KB)</label>
+                    <input type="file" id="profileImageUpload" accept="image/*">
+                    <img id="profileImagePreview" src="" alt="Preview" class="profile-image-preview">
                 </div>
                 <div class="form-group">
                     <label>Nama Lengkap *</label>
@@ -194,7 +211,7 @@
                 </div>
                 <div class="form-group">
                     <label>Deskripsi Pekerjaan</label>
-                    <textarea id="description" placeholder="Ceritakan tentang tanggung jawab dan pencapaian Anda..."></textarea>
+                    <textarea id="description" placeholder="Ceritakan tentang tanggung jawab Anda..."></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Simpan Pengalaman</button>
             </form>
