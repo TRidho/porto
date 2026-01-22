@@ -4,13 +4,14 @@
 // ⬇️⬇️⬇️ PASTE CONFIG FIREBASE ANDA DI SINI ⬇️⬇️⬇️
 
 const firebaseConfig = {
-    apiKey: "PASTE_YOUR_API_KEY_HERE",
-    authDomain: "PASTE_YOUR_AUTH_DOMAIN_HERE",
-    databaseURL: "PASTE_YOUR_DATABASE_URL_HERE",
-    projectId: "PASTE_YOUR_PROJECT_ID_HERE",
-    storageBucket: "PASTE_YOUR_STORAGE_BUCKET_HERE",
-    messagingSenderId: "PASTE_YOUR_SENDER_ID_HERE",
-    appId: "PASTE_YOUR_APP_ID_HERE"
+  apiKey: "AIzaSyCF4eC3O9MebjCtb958m8RkSFyZwZH1AMk",
+  authDomain: "portotaufik29.firebaseapp.com",
+  databaseURL: "https://portotaufik29-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "portotaufik29",
+  storageBucket: "portotaufik29.firebasestorage.app",
+  messagingSenderId: "284054417267",
+  appId: "1:284054417267:web:5669d4f9294395c5291f06",
+  measurementId: "G-SZVQ1MQ4S0"
 };
 
 // ⬆️⬆️⬆️ PASTE CONFIG FIREBASE ANDA DI ATAS ⬆️⬆️⬆️
