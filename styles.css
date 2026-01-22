@@ -171,10 +171,10 @@ body {
     display: flex;
     background: rgba(20, 20, 20, 0.85);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-    max-width: 850px;
+    max-width: 900px;
     width: 100%;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -303,28 +303,33 @@ body {
 .login-right h2 {
     margin-bottom: 35px;
     text-align: center;
-    font-size: 1.4em;
+    font-size: 1.3em;
     font-weight: 300;
     letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
 }
 
+/* ==================== LOGIN BUTTONS - DIPERBAIKI ==================== */
 .login-btn {
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: flex-start;
+    gap: 16px;
     width: 100%;
-    padding: 18px 25px;
-    margin-bottom: 15px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    color: white;
+    padding: 20px 28px;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    color: #ffffff;
     font-size: 1em;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    text-align: left;
 }
 
 .login-btn::before {
@@ -334,8 +339,8 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.6s ease;
 }
 
 .login-btn:hover::before {
@@ -343,13 +348,73 @@ body {
 }
 
 .login-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.login-btn span:first-child {
-    font-size: 1.3em;
+.login-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Icon dalam tombol */
+.login-btn .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    font-size: 1.4em;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover .btn-icon {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+
+/* Text dalam tombol */
+.login-btn .btn-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.login-btn .btn-title {
+    font-size: 1.05em;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.login-btn .btn-subtitle {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+}
+
+/* Admin button - warna berbeda */
+.login-btn.admin {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.login-btn.admin .btn-icon {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+}
+
+.login-btn.admin:hover {
+    background: rgba(251, 191, 36, 0.08);
+    border-color: rgba(251, 191, 36, 0.3);
+}
+
+.login-btn.admin:hover .btn-icon {
+    background: rgba(251, 191, 36, 0.25);
 }
 
 /* ==================== HEADER ==================== */
@@ -380,13 +445,19 @@ body {
     flex-wrap: wrap;
 }
 
-.logout-btn, .data-btn {
-    padding: 10px 20px;
+/* ==================== HEADER BUTTONS - DIPERBAIKI ==================== */
+.logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: white;
-    font-size: 0.85em;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 0.9em;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -394,16 +465,70 @@ body {
 .logout-btn:hover {
     background: #ffffff;
     color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
 }
 
-.data-btn.export { border-color: rgba(74, 222, 128, 0.4); }
-.data-btn.export:hover { background: rgba(74, 222, 128, 0.15); border-color: rgba(74, 222, 128, 0.6); }
+.logout-btn:active {
+    transform: translateY(0);
+}
 
-.data-btn.import { border-color: rgba(96, 165, 250, 0.4); }
-.data-btn.import:hover { background: rgba(96, 165, 250, 0.15); border-color: rgba(96, 165, 250, 0.6); }
+.data-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 0.85em;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-.data-btn.clear { border-color: rgba(248, 113, 113, 0.4); }
-.data-btn.clear:hover { background: rgba(248, 113, 113, 0.15); border-color: rgba(248, 113, 113, 0.6); }
+.data-btn:hover {
+    transform: translateY(-2px);
+}
+
+.data-btn:active {
+    transform: translateY(0);
+}
+
+.data-btn.export {
+    border-color: rgba(74, 222, 128, 0.3);
+    color: #4ade80;
+}
+
+.data-btn.export:hover {
+    background: rgba(74, 222, 128, 0.15);
+    border-color: rgba(74, 222, 128, 0.5);
+    box-shadow: 0 5px 20px rgba(74, 222, 128, 0.2);
+}
+
+.data-btn.import {
+    border-color: rgba(96, 165, 250, 0.3);
+    color: #60a5fa;
+}
+
+.data-btn.import:hover {
+    background: rgba(96, 165, 250, 0.15);
+    border-color: rgba(96, 165, 250, 0.5);
+    box-shadow: 0 5px 20px rgba(96, 165, 250, 0.2);
+}
+
+.data-btn.clear {
+    border-color: rgba(248, 113, 113, 0.3);
+    color: #f87171;
+}
+
+.data-btn.clear:hover {
+    background: rgba(248, 113, 113, 0.15);
+    border-color: rgba(248, 113, 113, 0.5);
+    box-shadow: 0 5px 20px rgba(248, 113, 113, 0.2);
+}
 
 /* ==================== CONTAINER & CONTENT ==================== */
 .container {
@@ -492,20 +617,32 @@ body {
     flex: 1;
 }
 
+/* ==================== EDIT PROFILE BUTTON ==================== */
 .edit-btn-header {
-    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    color: white;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 0.9em;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 0.85em;
 }
 
 .edit-btn-header:hover {
     background: #ffffff;
     color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+}
+
+.edit-btn-header:active {
+    transform: translateY(0);
 }
 
 .divider {
@@ -601,31 +738,41 @@ body {
     text-decoration: none;
 }
 
-/* ==================== EXPERIENCE CARDS ==================== */
+/* ==================== ADD BUTTON ==================== */
 .add-btn {
-    padding: 12px 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
     background: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     color: #000000;
-    font-size: 0.9em;
-    font-weight: 500;
+    font-size: 0.95em;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
 .add-btn:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
 }
 
+.add-btn:active {
+    transform: translateY(-1px);
+}
+
+/* ==================== EXPERIENCE CARDS ==================== */
 .experience-card {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 15px;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
     transition: all 0.3s ease;
     position: relative;
 }
@@ -635,16 +782,16 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 3px;
+    width: 4px;
     height: 100%;
     background: linear-gradient(180deg, rgba(255,255,255,0.5), transparent);
     opacity: 0;
     transition: opacity 0.3s ease;
-    border-radius: 3px 0 0 3px;
+    border-radius: 4px 0 0 4px;
 }
 
 .experience-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     border-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
@@ -654,8 +801,8 @@ body {
 }
 
 .experience-card h3 {
-    font-size: 1.1em;
-    font-weight: 400;
+    font-size: 1.15em;
+    font-weight: 500;
     margin-bottom: 6px;
     color: #ffffff;
 }
@@ -679,6 +826,7 @@ body {
     font-size: 0.9em;
 }
 
+/* ==================== CARD ACTION BUTTONS ==================== */
 .card-actions {
     margin-top: 18px;
     display: flex;
@@ -686,13 +834,17 @@ body {
 }
 
 .card-actions button {
-    padding: 6px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 6px;
+    border-radius: 8px;
     background: transparent;
-    color: white;
+    color: #ffffff;
+    font-size: 0.85em;
+    font-weight: 400;
     cursor: pointer;
-    font-size: 0.8em;
     transition: all 0.3s ease;
 }
 
@@ -700,26 +852,32 @@ body {
     background: #ffffff;
     color: #000000;
     border-color: #ffffff;
+    transform: translateY(-2px);
 }
 
 .card-actions .delete:hover {
     background: rgba(248, 113, 113, 0.15);
     border-color: rgba(248, 113, 113, 0.5);
     color: #f87171;
+    transform: translateY(-2px);
+}
+
+.card-actions button:active {
+    transform: translateY(0);
 }
 
 /* ==================== EMPTY STATE ==================== */
 .empty-state {
     text-align: center;
-    padding: 45px 20px;
+    padding: 50px 20px;
     color: rgba(255, 255, 255, 0.4);
 }
 
 .empty-state h3 {
     color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 300;
-    font-size: 1.1em;
+    font-size: 1.15em;
 }
 
 .empty-state p {
@@ -748,7 +906,7 @@ body {
 .modal-content {
     background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
     padding: 35px;
-    border-radius: 20px;
+    border-radius: 24px;
     max-width: 480px;
     width: 100%;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -758,7 +916,7 @@ body {
 }
 
 .modal-small {
-    max-width: 380px;
+    max-width: 400px;
 }
 
 @keyframes modalIn {
@@ -769,19 +927,19 @@ body {
 .modal-title {
     font-weight: 300;
     letter-spacing: 2px;
-    margin-bottom: 25px;
+    margin-bottom: 28px;
     font-size: 1.2em;
 }
 
 .close {
     position: absolute;
-    right: 18px;
-    top: 15px;
-    font-size: 1.6em;
+    right: 20px;
+    top: 18px;
+    font-size: 1.5em;
     color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -796,24 +954,24 @@ body {
 
 /* ==================== FORMS ==================== */
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.85em;
-    font-weight: 300;
+    font-size: 0.9em;
+    font-weight: 400;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 12px 15px;
+    padding: 14px 16px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
+    border-radius: 12px;
     color: white;
     font-size: 0.95em;
     transition: all 0.3s ease;
@@ -824,24 +982,272 @@ body {
     outline: none;
     border-color: rgba(255, 255, 255, 0.35);
     background: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .form-group textarea {
-    min-height: 90px;
+    min-height: 100px;
     resize: vertical;
     line-height: 1.5;
 }
 
 .form-group input[type="file"] {
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
 }
 
 .hint {
-    color: rgba(255, 255, 255, 
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8em;
+    margin-top: 8px;
+}
+
+.hint strong {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.error-text {
+    color: #f87171;
+    font-size: 0.9em;
+    margin-top: 15px;
+    text-align: center;
+    display: none;
+}
+
+/* ==================== SUBMIT BUTTON ==================== */
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #ffffff;
+    border: none;
+    border-radius: 12px;
+    color: #000000;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 255, 255, 0.2);
+}
+
+.submit-btn:active {
+    transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ==================== PHOTO PREVIEW ==================== */
+.photo-preview-container {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.photo-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.remove-photo-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid rgba(248, 113, 113, 0.4);
+    border-radius: 8px;
+    color: #f87171;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-photo-btn:hover {
+    background: rgba(248, 113, 113, 0.15);
+    border-color: rgba(248, 113, 113, 0.6);
+}
+
+/* ==================== TOAST ==================== */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 16px 24px;
+    color: white;
+    font-size: 0.95em;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateX(120%);
+    transition: transform 0.4s ease;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.success { border-left: 4px solid #4ade80; }
+.toast.success::before { content: '✓'; color: #4ade80; font-weight: bold; font-size: 1.1em; }
+
+.toast.error { border-left: 4px solid #f87171; }
+.toast.error::before { content: '✕'; color: #f87171; font-weight: bold; font-size: 1.1em; }
+
+.toast.info { border-left: 4px solid #60a5fa; }
+.toast.info::before { content: 'ℹ'; color: #60a5fa; font-size: 1.1em; }
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .login-box {
+        flex-direction: column;
+    }
+
+    .login-left, .login-right {
+        padding: 40px 30px;
+    }
+
+    .profile-photo-large {
+        width: 120px;
+        height: 120px;
+        font-size: 3em;
+    }
+
+    .login-btn {
+        padding: 18px 24px;
+    }
+
+    .login-btn .btn-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2em;
+    }
+
+    .header {
+        padding: 15px 20px;
+    }
+
+    .header-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .content {
+        padding: 25px 20px;
+    }
+
+    .profile-display {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-contacts {
+        justify-content: center;
+    }
+
+    .modal-content {
+        padding: 30px 24px;
+        margin: 15px;
+        border-radius: 20px;
+    }
+
+    .toast {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-right h2 {
+        font-size: 1.1em;
+        letter-spacing: 2px;
+    }
+
+    .login-btn {
+        padding: 16px 20px;
+        gap: 14px;
+    }
+
+    .login-btn .btn-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1em;
+        border-radius: 10px;
+    }
+
+    .login-btn .btn-title {
+        font-size: 0.95em;
+    }
+
+    .login-btn .btn-subtitle {
+        font-size: 0.75em;
+    }
+
+    .view-header h1 {
+        font-size: 1.4em;
+        letter-spacing: 3px;
+    }
+
+    .profile-name {
+        font-size: 1.3em;
+    }
+
+    .header-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .data-btn, .logout-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .edit-btn-header {
+        width: 100%;
+    }
+
+    .db-status-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .add-btn {
+        width: 100%;
+    }
+}
